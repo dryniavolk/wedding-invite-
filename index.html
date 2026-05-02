@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свадьба Егора и Лии</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, 'Georgia', serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            max-width: 700px;
+            width: 100%;
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .black-header {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 3px solid #fff;
+        }
+        .black-header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        .names {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: white;
+            color: black;
+            display: inline-block;
+            padding: 0.4rem 1.8rem;
+            border-radius: 60px;
+            margin: 1rem 0 0.5rem;
+        }
+        .photo-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 1rem 0.5rem;
+        }
+        .photo {
+            text-align: center;
+            width: 110px;
+        }
+        .photo-circle {
+            width: 100px;
+            height: 100px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            border: 3px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            filter: grayscale(100%);
+        }
+        .photo-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .info-box {
+            background: #f5f5f5;
+            margin: 1rem 1.5rem;
+            padding: 1.2rem;
+            border-radius: 28px;
+            text-align: center;
+        }
+        .date {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .time, .place {
+            font-size: 1.2rem;
+            margin-top: 6px;
+        }
+        .dresscode {
+            background: black;
+            color: white;
+            text-align: center;
+            margin: 0 1.5rem;
+            padding: 0.6rem;
+            border-radius: 40px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .form-block {
+            padding: 1rem 1.8rem 2rem;
+        }
+        .question {
+            background: #f9f9f9;
+            border-radius: 28px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .radio-label {
+            background: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 60px;
+            border: 1px solid #aaa;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+        .alcohol-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .alcohol-btn {
+            background: white;
+            border: 2px solid #ccc;
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .alcohol-btn.selected {
+            background: black;
+            color: white;
+            border-color: black;
+        }
+        .submit-btn {
+            width: 100%;
+            background: black;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #e6e6e6;
+            border-radius: 28px;
+            text-align: center;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666;
+            padding: 1rem;
+        }
+        @media (max-width: 550px) {
+            .names { font-size: 1.8rem; }
+            .date { font-size: 1.6rem; }
+            .photo-circle { width: 75px; height: 75px; font-size: 2.2rem; }
+            .alcohol-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="black-header">
+        <h1>💍 Свадебное приглашение 💍</h1>
+        <div class="names">ЕГОР & ЛИЯ</div>
+    </div>
+
+    <div class="photo-row">
+        <div class="photo">
+            <div class="photo-circle">🖤</div>
+            <div class="photo-name">Егор</div>
+        </div>
+        <div class="photo">
+            <div class="photo-circle">🤍</div>
+            <div class="photo-name">Лия</div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <div class="date">31 ИЮЛЯ 2026</div>
+        <div class="time">⏰ НАЧАЛО В 16:00</div>
+        <div class="place">📍 «Дача на Лесной»</div>
+    </div>
+
+    <div class="dresscode">🖤 DRESS CODE: BLACK & WHITE 🤍</div>
+
+    <div class="form-block">
+        <form id="rsvpForm">
+            <div class="question">
+                <div style="font-weight: bold; font-size: 1.3rem;">💌 Ваше имя</div>
+                <input type="text" id="guestName" placeholder="Например: Александр" required>
+            </div>
+
+            <div class="question">
+                <div style="font-weight: bold; font-size: 1.3rem;">Сможете ли вы присутствовать?</div>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="attendance" value="Могу"> ✅ Могу</label>
+                    <label class="radio-label"><input type="radio" name="attendance" value="Не могу"> ❌ Не могу</label>
+                </div>
+            </div>
+
+            <div class="question" id="alcoholBlock">
+                <div style="font-weight: bold; font-size: 1.2rem;">🍷 Ваш выбор алкоголя</div>
+                <div class="alcohol-grid">
+                    <button type="button" data-drink="Вино красное" class="alcohol-btn">🍷 Вино красное</button>
+                    <button type="button" data-drink="Вино белое" class="alcohol-btn">🥂 Вино белое</button>
+                    <button type="button" data-drink="Шампанское" class="alcohol-btn">🥂 Шампанское</button>
+                    <button type="button" data-drink="Водка" class="alcohol-btn">🥃 Водка</button>
+                    <button type="button" data-drink="Коньяк" class="alcohol-btn">🥃 Коньяк</button>
+                    <button type="button" data-drink="Виски/Кола" class="alcohol-btn">🥃 Виски/Кола</button>
+                    <button type="button" data-drink="Безалкогольное" class="alcohol-btn">🧃 Безалкогольное</button>
+                </div>
+                <div style="font-size: 0.75rem; margin-top: 8px;">(можно выбрать только один)</div>
+            </div>
+
+            <button type="submit" class="submit-btn">📨 Отправить ответ</button>
+            <div id="responseMsg" class="message"></div>
+        </form>
+        <footer>Пожалуйста, подтвердите до 15 июля ✨</footer>
+    </div>
+</div>
+
+<script>
+    // ⬇️⬇️⬇️ ВАЖНО: замените на свою ссылку из Google Apps Script ⬇️⬇️⬇️
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRXnRlQaY8bb-xNzu-BkjyPHR9H6SAKJItgpVJ4PJ_j6rP4dSy7BwgQjy93-P5FlVQ-g/exec';
+
+    let selectedDrink = null;
+    const alcoholBtns = document.querySelectorAll('.alcohol-btn');
+    alcoholBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            alcoholBtns.forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedDrink = this.getAttribute('data-drink');
+        });
+    });
+
+    const form = document.getElementById('rsvpForm');
+    const nameInput = document.getElementById('guestName');
+    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+    const msgDiv = document.getElementById('responseMsg');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const guestName = nameInput.value.trim();
+        if (!guestName) {
+            alert('Пожалуйста, напишите ваше имя');
+            return;
+        }
+
+        let attendance = null;
+        for (let r of attendanceRadios) {
+            if (r.checked) { attendance = r.value; break; }
+        }
+        if (!attendance) {
+            alert('Выберите: сможете прийти или нет');
+            return;
+        }
+
+        let drink = '';
+        if (attendance === 'Могу') {
+            if (!selectedDrink) {
+                alert('Выберите вариант алкоголя (или безалкогольный)');
+                return;
+            }
+            drink = selectedDrink;
+        } else {
+            drink = '—';
+        }
+
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка...';
+
+        try {
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    timestamp: new Date().toLocaleString('ru-RU'),
+                    guestName: guestName,
+                    attendance: attendance,
+                    drink: drink
+                })
+            });
+
+            msgDiv.style.display = 'block';
+            msgDiv.innerHTML = attendance === 'Могу'
+                ? `✅ ${guestName}, спасибо! Вы ответили, что придёте. Выбор напитка учтён. Ждём 31 июля! 🖤🤍`
+                : `😔 ${guestName}, нам жаль, что вы не сможете прийти. Обязательно передадим привет!`;
+
+            // Очищаем форму, но оставляем имя? Лучше очистить всё, кроме имени
+            document.querySelectorAll('input[name="attendance"]').forEach(r => r.checked = false);
+            alcoholBtns.forEach(b => b.classList.remove('selected'));
+            selectedDrink = null;
+
+        } catch (err) {
+            msgDiv.style.display = 'block';
+            msgDiv.innerHTML = '❌ Ошибка отправки. Попробуйте позже или напишите нам лично.';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '📨 Отправить ответ';
+        }
+    });
+</script>
+</body>
+</html>
