@@ -80,7 +80,7 @@
             font-size: 1.2rem;
         }
 
-        /* Совместное фото */
+        /* Совместное фото — цветное, без рамки */
         .couple-photo {
             text-align: center;
             margin: 1rem 1.5rem;
@@ -90,13 +90,7 @@
             max-width: 300px;
             height: auto;
             border-radius: 24px;
-            border: 4px solid black;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            filter: grayscale(100%);
-            transition: filter 0.3s;
-        }
-        .couple-photo-img:hover {
-            filter: grayscale(0%);
         }
 
         .info-box {
@@ -256,7 +250,7 @@
         </div>
     </div>
 
-    <!-- СОВМЕСТНОЕ ФОТО -->
+    <!-- СОВМЕСТНОЕ ФОТО (цветное, без рамки) -->
     <div class="couple-photo">
         <img class="couple-photo-img" src="https://raw.githubusercontent.com/dryniavolk/wedding-invite-/main/mer.jpg" alt="Егор и Лия">
     </div>
@@ -273,7 +267,7 @@
         <form id="rsvpForm">
             <div class="question">
                 <div style="font-weight: bold; font-size: 1.3rem;">💌 Ваше имя</div>
-                <input type="text" id="guestName" placeholder="Например: Илон Маск" required>
+                <input type="text" id="guestName" placeholder="Например: Александр" required>
             </div>
 
             <div class="question">
@@ -337,11 +331,9 @@
             const index = selectedDrinks.indexOf(drinkValue);
             
             if (index === -1) {
-                // добавляем
                 selectedDrinks.push(drinkValue);
                 this.classList.add('selected');
             } else {
-                // удаляем
                 selectedDrinks.splice(index, 1);
                 this.classList.remove('selected');
             }
@@ -410,6 +402,7 @@
             attendanceValue = null;
             alcoholBtns.forEach(b => b.classList.remove('selected'));
             selectedDrinks = [];
+            nameInput.value = ''; // очищаем поле имени
 
         } catch (err) {
             msgDiv.style.display = 'block';
