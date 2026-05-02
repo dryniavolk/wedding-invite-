@@ -68,11 +68,37 @@
             justify-content: center;
             font-size: 3rem;
             filter: grayscale(100%);
+            overflow: hidden;
+        }
+        .photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .photo-name {
             font-weight: bold;
             font-size: 1.2rem;
         }
+
+        /* Совместное фото */
+        .couple-photo {
+            text-align: center;
+            margin: 1rem 1.5rem;
+        }
+        .couple-photo-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 24px;
+            border: 4px solid black;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+        }
+        .couple-photo-img:hover {
+            filter: grayscale(0%);
+        }
+
         .info-box {
             background: #f5f5f5;
             margin: 1rem 1.5rem;
@@ -108,20 +134,41 @@
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        .radio-group {
+
+        /* Кнопки Могу/Не могу (без чекбоксов) */
+        .attendance-buttons {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 1rem;
             flex-wrap: wrap;
         }
-        .radio-label {
+        .attend-btn {
             background: white;
-            padding: 0.5rem 1.5rem;
+            border: 2px solid #ccc;
+            padding: 0.8rem 2rem;
             border-radius: 60px;
-            border: 1px solid #ccc;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            min-width: 130px;
         }
+        .attend-btn.selected {
+            background: black;
+            color: white;
+            border-color: black;
+        }
+        .attend-btn.yes.selected {
+            background: #000;
+            color: white;
+        }
+        .attend-btn.no.selected {
+            background: #333;
+            color: white;
+        }
+
         input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -183,6 +230,7 @@
             .date { font-size: 1.6rem; }
             .photo-circle { width: 75px; height: 75px; font-size: 2.2rem; }
             .alcohol-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            .attend-btn { padding: 0.6rem 1rem; font-size: 1rem; min-width: 100px; }
         }
     </style>
 </head>
@@ -195,13 +243,22 @@
 
     <div class="photo-row">
         <div class="photo">
-            <div class="photo-circle">🖤</div>
+            <div class="photo-circle">
+                <span>🖤</span>
+            </div>
             <div class="photo-name">Егор</div>
         </div>
         <div class="photo">
-            <div class="photo-circle">🤍</div>
+            <div class="photo-circle">
+                <span>🤍</span>
+            </div>
             <div class="photo-name">Лия</div>
         </div>
+    </div>
+
+    <!-- СОВМЕСТНОЕ ФОТО -->
+    <div class="couple-photo">
+        <img class="couple-photo-img" src="https://drive.google.com/uc?export=view&id=1y9vb3tPaYKUnAXXUJYQQeUhYkib0WAwk" alt="Егор и Лия">
     </div>
 
     <div class="info-box">
@@ -216,14 +273,14 @@
         <form id="rsvpForm">
             <div class="question">
                 <div style="font-weight: bold; font-size: 1.3rem;">💌 Ваше имя</div>
-                <input type="text" id="guestName" placeholder="Например: Александр" required>
+                <input type="text" id="guestName" placeholder="Например: Илон Маск" required>
             </div>
 
             <div class="question">
                 <div style="font-weight: bold; font-size: 1.3rem;">Сможете ли вы присутствовать?</div>
-                <div class="radio-group">
-                    <label class="radio-label"><input type="radio" name="attendance" value="Могу"> ✅ Могу</label>
-                    <label class="radio-label"><input type="radio" name="attendance" value="Не могу"> ❌ Не могу</label>
+                <div class="attendance-buttons">
+                    <button type="button" id="attendYes" class="attend-btn yes">✅ Могу</button>
+                    <button type="button" id="attendNo" class="attend-btn no">❌ Не могу</button>
                 </div>
             </div>
 
@@ -238,7 +295,7 @@
                     <button type="button" data-drink="Виски/Кола" class="alcohol-btn">🥃 Виски/Кола</button>
                     <button type="button" data-drink="Безалкогольное" class="alcohol-btn">🧃 Безалкогольное</button>
                 </div>
-                <div style="font-size: 0.75rem; margin-top: 8px;">(можно выбрать только один)</div>
+                <div style="font-size: 0.75rem; margin-top: 8px;">✨ Можно выбрать хоть весь список, но не советуем 😜 ✨</div>
             </div>
 
             <button type="submit" class="submit-btn">📨 Отправить ответ</button>
@@ -249,22 +306,50 @@
 </div>
 
 <script>
-    // ⬇️⬇️⬇️ ВАЖНО: замените на свою ссылку из Google Apps Script ⬇️⬇️⬇️
+    // ⬇️⬇️⬇️ ВАША ССЫЛКА НА GOOGLE APPS SCRIPT ⬇️⬇️⬇️
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRXnRlQaY8bb-xNzu-BkjyPHR9H6SAKJItgpVJ4PJ_j6rP4dSy7BwgQjy93-P5FlVQ-g/exec';
 
-    let selectedDrink = null;
+    // Переменные
+    let attendanceValue = null;      // 'Могу' или 'Не могу'
+    let selectedDrinks = [];         // массив выбранных напитков (несколько)
+
+    // Кнопки Могу/Не могу
+    const attendYesBtn = document.getElementById('attendYes');
+    const attendNoBtn = document.getElementById('attendNo');
+
+    attendYesBtn.addEventListener('click', function() {
+        attendYesBtn.classList.add('selected');
+        attendNoBtn.classList.remove('selected');
+        attendanceValue = 'Могу';
+    });
+
+    attendNoBtn.addEventListener('click', function() {
+        attendNoBtn.classList.add('selected');
+        attendYesBtn.classList.remove('selected');
+        attendanceValue = 'Не могу';
+    });
+
+    // Кнопки выбора алкоголя (можно несколько)
     const alcoholBtns = document.querySelectorAll('.alcohol-btn');
     alcoholBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            alcoholBtns.forEach(b => b.classList.remove('selected'));
-            this.classList.add('selected');
-            selectedDrink = this.getAttribute('data-drink');
+            const drinkValue = this.getAttribute('data-drink');
+            const index = selectedDrinks.indexOf(drinkValue);
+            
+            if (index === -1) {
+                // добавляем
+                selectedDrinks.push(drinkValue);
+                this.classList.add('selected');
+            } else {
+                // удаляем
+                selectedDrinks.splice(index, 1);
+                this.classList.remove('selected');
+            }
         });
     });
 
     const form = document.getElementById('rsvpForm');
     const nameInput = document.getElementById('guestName');
-    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
     const msgDiv = document.getElementById('responseMsg');
 
     form.addEventListener('submit', async (e) => {
@@ -276,24 +361,20 @@
             return;
         }
 
-        let attendance = null;
-        for (let r of attendanceRadios) {
-            if (r.checked) { attendance = r.value; break; }
-        }
-        if (!attendance) {
-            alert('Выберите: сможете прийти или нет');
+        if (!attendanceValue) {
+            alert('Выберите: сможете прийти или нет (кнопки "Могу" или "Не могу")');
             return;
         }
 
-        let drink = '';
-        if (attendance === 'Могу') {
-            if (!selectedDrink) {
-                alert('Выберите вариант алкоголя (или безалкогольный)');
+        let drinkText = '';
+        if (attendanceValue === 'Могу') {
+            if (selectedDrinks.length === 0) {
+                alert('Выберите хотя бы один вариант алкоголя (или безалкогольный)');
                 return;
             }
-            drink = selectedDrink;
+            drinkText = selectedDrinks.join(', ');
         } else {
-            drink = '—';
+            drinkText = '—';
         }
 
         const submitBtn = document.querySelector('.submit-btn');
@@ -308,20 +389,27 @@
                 body: JSON.stringify({
                     timestamp: new Date().toLocaleString('ru-RU'),
                     guestName: guestName,
-                    attendance: attendance,
-                    drink: drink
+                    attendance: attendanceValue,
+                    drink: drinkText
                 })
             });
 
             msgDiv.style.display = 'block';
-            msgDiv.innerHTML = attendance === 'Могу'
-                ? `✅ ${guestName}, спасибо! Вы ответили, что придёте. Выбор напитка учтён. Ждём 31 июля! 🖤🤍`
-                : `😔 ${guestName}, нам жаль, что вы не сможете прийти. Обязательно передадим привет!`;
+            if (attendanceValue === 'Могу') {
+                let drinkMessage = selectedDrinks.length === 1 
+                    ? `Вы выбрали: ${drinkText}` 
+                    : `Вы выбрали аж ${selectedDrinks.length} напитка(ов): ${drinkText}. Надеемся, вы доберётесь до дачи 😄`;
+                msgDiv.innerHTML = `✅ ${guestName}, спасибо! Вы ответили, что придёте. ${drinkMessage} Ждём 31 июля! 🖤🤍`;
+            } else {
+                msgDiv.innerHTML = `😔 ${guestName}, нам жаль, что вы не сможете прийти. Обязательно передадим привет!`;
+            }
 
-            // Очищаем форму, но оставляем имя? Лучше очистить всё, кроме имени
-            document.querySelectorAll('input[name="attendance"]').forEach(r => r.checked = false);
+            // Сброс формы
+            attendYesBtn.classList.remove('selected');
+            attendNoBtn.classList.remove('selected');
+            attendanceValue = null;
             alcoholBtns.forEach(b => b.classList.remove('selected'));
-            selectedDrink = null;
+            selectedDrinks = [];
 
         } catch (err) {
             msgDiv.style.display = 'block';
