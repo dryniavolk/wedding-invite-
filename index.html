@@ -18,7 +18,6 @@
             overflow-x: hidden;
         }
 
-        /* АНИМАЦИИ ТОЛЬКО НА БЕЛОЙ КАРТОЧКЕ */
         .card {
             max-width: 700px;
             width: 100%;
@@ -31,7 +30,7 @@
             animation: cardAppear 0.8s ease-out;
         }
 
-        /* Падающие кольца ТОЛЬКО внутри карточки — теперь хорошо видны */
+        /* Падающие кольца */
         .card-rings {
             position: absolute;
             top: 0;
@@ -45,20 +44,10 @@
         }
 
         @keyframes floatRingsWhite {
-            0% {
-                transform: translateY(-50px) rotate(0deg);
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.4;
-            }
-            80% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(110%) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(110%) rotate(360deg); opacity: 0; }
         }
 
         .ring-white {
@@ -69,7 +58,6 @@
             background: transparent;
         }
 
-        /* Делаем кольца разных размеров, цветов и толщины — для контраста */
         .ring-white:nth-child(1) { left: 5%; width: 80px; height: 80px; border: 4px solid #444; animation-duration: 20s; animation-delay: 0s; }
         .ring-white:nth-child(2) { left: 18%; width: 45px; height: 45px; border: 3px solid #999; animation-duration: 14s; animation-delay: 2s; }
         .ring-white:nth-child(3) { left: 35%; width: 110px; height: 110px; border: 4px solid #222; animation-duration: 25s; animation-delay: 5s; }
@@ -81,7 +69,6 @@
         .ring-white:nth-child(9) { left: 12%; width: 55px; height: 55px; border: 3px solid #bbb; animation-duration: 15s; animation-delay: 8s; }
         .ring-white:nth-child(10) { left: 62%; width: 85px; height: 85px; border: 4px solid #666; animation-duration: 21s; animation-delay: 10s; }
 
-        /* Мерцание заголовка */
         @keyframes softGlowWhite {
             0% { text-shadow: 0 0 0px rgba(0,0,0,0); }
             50% { text-shadow: 0 0 8px rgba(0,0,0,0.25); }
@@ -92,19 +79,11 @@
             animation: softGlowWhite 3s ease-in-out infinite;
         }
 
-        /* Плавное появление карточки */
         @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Лёгкая анимация для фотографий при наведении */
         .couple-photo-img, .dresscode-img {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -113,7 +92,6 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
-        /* Пульсация для кнопки отправки */
         @keyframes gentlePulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.02); background: #222; }
@@ -180,7 +158,6 @@
             font-size: 1.2rem;
         }
 
-        /* Совместное фото — цветное, без рамки */
         .couple-photo {
             text-align: center;
             margin: 1rem 1.5rem;
@@ -193,7 +170,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* Фото дресс-кода — цветное, без рамки */
         .dresscode-photo {
             text-align: center;
             margin: 1rem 1.5rem;
@@ -240,7 +216,6 @@
             text-align: center;
         }
 
-        /* Кнопки Могу/Не могу (без чекбоксов) */
         .attendance-buttons {
             display: flex;
             justify-content: center;
@@ -342,7 +317,6 @@
 </head>
 <body>
 <div class="card">
-    <!-- КОЛЬЦА ТЕПЕРЬ ЧЁТКО ВИДНЫ НА БЕЛОМ ФОНЕ -->
     <div class="card-rings">
         <div class="ring-white"></div>
         <div class="ring-white"></div>
@@ -376,7 +350,6 @@
         </div>
     </div>
 
-    <!-- СОВМЕСТНОЕ ФОТО (цветное, без рамки) -->
     <div class="couple-photo">
         <img class="couple-photo-img" src="https://raw.githubusercontent.com/dryniavolk/wedding-invite-/main/mer.jpg" alt="Егор и Лия">
     </div>
@@ -387,7 +360,6 @@
         <div class="place">📍 «Дача на Лесной»</div>
     </div>
 
-    <!-- ФОТО ДРЕСС-КОДА И ТЕКСТ -->
     <div class="dresscode-photo">
         <img class="dresscode-img" src="https://raw.githubusercontent.com/dryniavolk/wedding-invite-/main/dress%20code.jpg" alt="Дресс-код">
     </div>
@@ -400,6 +372,7 @@
             <div class="question">
                 <div style="font-weight: bold; font-size: 1.3rem;">😎 Пишите как хотите, главное — чтобы мы поняли, кого спасать от голода и скуки. Но лучше имя и фамилия</div>
                 <input type="text" id="guestName" placeholder="Например: Илон Маск" required>
+                <div style="font-size: 0.7rem; color: #888; margin-top: 6px;">✍️ Только буквы, пробелы и дефисы. Цифры и символы не принимаются 😉</div>
             </div>
 
             <div class="question">
@@ -435,14 +408,29 @@
 </div>
 
 <script>
-    // ВАША ССЫЛКА НА GOOGLE APPS SCRIPT
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRXnRlQaY8bb-xNzu-BkjyPHR9H6SAKJItgpVJ4PJ_j6rP4dSy7BwgQjy93-P5FlVQ-g/exec';
 
-    // Переменные
-    let attendanceValue = null;      // 'Могу' или 'Не могу'
-    let selectedDrinks = [];         // массив выбранных напитков (несколько)
+    let attendanceValue = null;
+    let selectedDrinks = [];
 
-    // Кнопки Могу/Не могу
+    // Функция проверки имени: только буквы (русские/английские), пробелы, дефисы и апострофы
+    function isValidName(name) {
+        // Разрешены: буквы (A-Z a-z А-Я а-я), пробелы, дефисы, апострофы
+        const nameRegex = /^[A-Za-zА-Яа-я\s\-']+$/;
+        return nameRegex.test(name);
+    }
+
+    // Очистка поля ввода от недопустимых символов (по желанию)
+    const nameInput = document.getElementById('guestName');
+    nameInput.addEventListener('input', function(e) {
+        let rawValue = e.target.value;
+        // Заменяем всё, что не буква, пробел, дефис или апостроф, на пустую строку
+        let cleanedValue = rawValue.replace(/[^A-Za-zА-Яа-я\s\-']/g, '');
+        if (rawValue !== cleanedValue) {
+            e.target.value = cleanedValue;
+        }
+    });
+
     const attendYesBtn = document.getElementById('attendYes');
     const attendNoBtn = document.getElementById('attendNo');
 
@@ -458,7 +446,6 @@
         attendanceValue = 'Не могу';
     });
 
-    // Кнопки выбора алкоголя (можно несколько)
     const alcoholBtns = document.querySelectorAll('.alcohol-btn');
     alcoholBtns.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -476,15 +463,21 @@
     });
 
     const form = document.getElementById('rsvpForm');
-    const nameInput = document.getElementById('guestName');
     const msgDiv = document.getElementById('responseMsg');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const guestName = nameInput.value.trim();
+        let guestName = nameInput.value.trim();
+        
         if (!guestName) {
             alert('Пожалуйста, напишите ваше имя');
+            return;
+        }
+
+        // Проверка на допустимые символы
+        if (!isValidName(guestName)) {
+            alert('Имя может содержать только буквы (русские или английские), пробелы и дефисы. Пожалуйста, уберите цифры и спецсимволы.');
             return;
         }
 
@@ -531,13 +524,12 @@
                 msgDiv.innerHTML = `😔 ${guestName}, нам жаль, что вы не сможете прийти. Обязательно передадим привет!`;
             }
 
-            // Сброс формы
             attendYesBtn.classList.remove('selected');
             attendNoBtn.classList.remove('selected');
             attendanceValue = null;
             alcoholBtns.forEach(b => b.classList.remove('selected'));
             selectedDrinks = [];
-            nameInput.value = ''; // очищаем поле имени
+            nameInput.value = '';
 
         } catch (err) {
             msgDiv.style.display = 'block';
