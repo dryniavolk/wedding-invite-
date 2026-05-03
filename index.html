@@ -30,7 +30,7 @@
             animation: cardAppear 0.8s ease-out;
         }
 
-        /* КОЛЬЦА НА ЗАДНЕМ ФОНЕ (под всеми элементами) */
+        /* КОЛЬЦА НА ЗАДНЕМ ФОНЕ */
         .card-rings {
             position: absolute;
             top: 0;
@@ -43,13 +43,11 @@
             border-radius: 32px;
         }
 
-        /* Контент карточки выше колец */
         .card > *:not(.card-rings) {
             position: relative;
             z-index: 2;
         }
 
-        /* Анимация плавного движения снизу вверх */
         @keyframes floatRingsUp {
             0% {
                 transform: translateY(100%) rotate(0deg);
@@ -69,14 +67,14 @@
             background: transparent;
         }
 
-        /* Базовые мужские кольца */
+        /* Мужские кольца (без камней) */
         .ring-white:nth-child(1) { left: 5%; width: 80px; height: 80px; border: 4px solid #444; animation-duration: 20s; animation-delay: 0s; top: 10%; }
         .ring-white:nth-child(3) { left: 35%; width: 110px; height: 110px; border: 4px solid #222; animation-duration: 25s; animation-delay: 5s; top: 70%; }
         .ring-white:nth-child(5) { left: 70%; width: 95px; height: 95px; border: 4px solid #555; animation-duration: 22s; animation-delay: 7s; top: 85%; }
         .ring-white:nth-child(8) { left: 78%; width: 70px; height: 70px; border: 4px solid #333; animation-duration: 18s; animation-delay: 6s; top: 30%; }
         .ring-white:nth-child(9) { left: 12%; width: 55px; height: 55px; border: 3px solid #bbb; animation-duration: 15s; animation-delay: 8s; top: 90%; }
 
-        /* ЖЕНСКИЕ КОЛЬЦА С КАМНЯМИ НА ОБОДКЕ */
+        /* ЖЕНСКИЕ КОЛЬЦА С КАМНЕМ СНАРУЖИ */
         .ring-white.small-ring {
             position: relative;
         }
@@ -84,8 +82,8 @@
         .ring-white.small-ring::before {
             content: "💎";
             position: absolute;
-            font-size: 0.9em;
-            top: -8px;
+            font-size: 1.1em;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
             text-shadow: 0 0 3px rgba(0,0,0,0.3);
@@ -96,14 +94,14 @@
         .ring-white.small-ring::after {
             content: "";
             position: absolute;
-            top: -3px;
+            top: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 12px;
-            height: 6px;
+            width: 16px;
+            height: 8px;
             background: radial-gradient(ellipse at center, #ffd700 0%, #b8860b 100%);
-            border-radius: 40% 40% 30% 30%;
-            opacity: 0.7;
+            border-radius: 50% 50% 30% 30%;
+            opacity: 0.8;
             pointer-events: none;
             z-index: 2;
         }
@@ -370,7 +368,7 @@
         <div class="ring-white"></div>
         <div class="ring-white"></div>
         
-        <!-- Женские кольца с камнями НА кольце -->
+        <!-- Женские кольца с камнем СНАРУЖИ -->
         <div class="ring-white small-ring"></div>
         <div class="ring-white small-ring"></div>
         <div class="ring-white small-ring"></div>
