@@ -18,27 +18,22 @@
             overflow-x: hidden;
         }
 
-        /* ===== АНИМАЦИИ ФОНА ===== */
-        /* Падающие полупрозрачные кольца (символ свадьбы) */
-        @keyframes floatRings {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
+        /* АНИМАЦИИ ТОЛЬКО НА БЕЛОЙ КАРТОЧКЕ */
+        .card {
+            max-width: 700px;
+            width: 100%;
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            animation: cardAppear 0.8s ease-out;
         }
 
-        .ring-bg {
-            position: fixed;
+        /* Лёгкие падающие элементы ТОЛЬКО внутри карточки */
+        .card-rings {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -46,35 +41,52 @@
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
+            border-radius: 32px;
         }
 
-        .ring {
+        @keyframes floatRingsWhite {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.08;
+            }
+            80% {
+                opacity: 0.08;
+            }
+            100% {
+                transform: translateY(100%) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .ring-white {
             position: absolute;
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            border: 2px solid #000;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: floatRings 12s linear infinite;
+            opacity: 0;
+            animation: floatRingsWhite 14s linear infinite;
         }
 
-        .ring:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-duration: 18s; animation-delay: 0s; }
-        .ring:nth-child(2) { left: 25%; width: 40px; height: 40px; animation-duration: 14s; animation-delay: 2s; }
-        .ring:nth-child(3) { left: 40%; width: 100px; height: 100px; animation-duration: 22s; animation-delay: 5s; }
-        .ring:nth-child(4) { left: 60%; width: 50px; height: 50px; animation-duration: 16s; animation-delay: 1s; }
-        .ring:nth-child(5) { left: 75%; width: 70px; height: 70px; animation-duration: 20s; animation-delay: 7s; }
-        .ring:nth-child(6) { left: 85%; width: 45px; height: 45px; animation-duration: 13s; animation-delay: 3s; }
-        .ring:nth-child(7) { left: 95%; width: 90px; height: 90px; animation-duration: 24s; animation-delay: 10s; }
-        .ring:nth-child(8) { left: 50%; width: 30px; height: 30px; animation-duration: 11s; animation-delay: 4s; }
+        .ring-white:nth-child(1) { left: 5%; width: 60px; height: 60px; animation-duration: 18s; animation-delay: 0s; }
+        .ring-white:nth-child(2) { left: 20%; width: 30px; height: 30px; animation-duration: 12s; animation-delay: 2s; }
+        .ring-white:nth-child(3) { left: 40%; width: 80px; height: 80px; animation-duration: 22s; animation-delay: 5s; }
+        .ring-white:nth-child(4) { left: 65%; width: 45px; height: 45px; animation-duration: 15s; animation-delay: 1s; }
+        .ring-white:nth-child(5) { left: 80%; width: 70px; height: 70px; animation-duration: 20s; animation-delay: 7s; }
+        .ring-white:nth-child(6) { left: 90%; width: 35px; height: 35px; animation-duration: 13s; animation-delay: 3s; }
+        .ring-white:nth-child(7) { left: 50%; width: 25px; height: 25px; animation-duration: 10s; animation-delay: 4s; }
+        .ring-white:nth-child(8) { left: 75%; width: 55px; height: 55px; animation-duration: 17s; animation-delay: 6s; }
 
-        /* Мерцание для надписей */
-        @keyframes softGlow {
-            0% { text-shadow: 0 0 0px rgba(255,255,255,0); }
-            50% { text-shadow: 0 0 6px rgba(255,255,255,0.5); }
-            100% { text-shadow: 0 0 0px rgba(255,255,255,0); }
+        /* Мерцание заголовка */
+        @keyframes softGlowWhite {
+            0% { text-shadow: 0 0 0px rgba(0,0,0,0); }
+            50% { text-shadow: 0 0 6px rgba(0,0,0,0.2); }
+            100% { text-shadow: 0 0 0px rgba(0,0,0,0); }
         }
 
         .black-header h1 {
-            animation: softGlow 3s ease-in-out infinite;
+            animation: softGlowWhite 3s ease-in-out infinite;
         }
 
         /* Плавное появление карточки */
@@ -89,19 +101,13 @@
             }
         }
 
-        .card {
-            animation: cardAppear 0.8s ease-out;
-            position: relative;
-            z-index: 2;
-        }
-
         /* Лёгкая анимация для фотографий при наведении */
         .couple-photo-img, .dresscode-img {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .couple-photo-img:hover, .dresscode-img:hover {
             transform: scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
         /* Пульсация для кнопки отправки */
@@ -114,14 +120,6 @@
             animation: gentlePulse 0.5s ease;
         }
 
-        .card {
-            max-width: 700px;
-            width: 100%;
-            background: #fff;
-            border-radius: 32px;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
-            overflow: hidden;
-        }
         .black-header {
             background: #000;
             color: white;
@@ -189,7 +187,7 @@
             max-width: 300px;
             height: auto;
             border-radius: 24px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         /* Фото дресс-кода — цветное, без рамки */
@@ -202,7 +200,7 @@
             max-width: 300px;
             height: auto;
             border-radius: 24px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .dresscode-text {
             text-align: center;
@@ -340,19 +338,19 @@
     </style>
 </head>
 <body>
-    <!-- ФОН С ПАДАЮЩИМИ КОЛЬЦАМИ (ТОЛЬКО ДЛЯ КРАСОТЫ) -->
-    <div class="ring-bg">
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
+<div class="card">
+    <!-- ТОЛЬКО ВНУТРЕННИЕ АНИМАЦИИ НА БЕЛОМ ФОНЕ -->
+    <div class="card-rings">
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
     </div>
 
-<div class="card">
     <div class="black-header">
         <h1>💍 Свадебное приглашение 💍</h1>
         <div class="names">ЕГОР & ЛИЯ</div>
