@@ -30,7 +30,7 @@
             animation: cardAppear 0.8s ease-out;
         }
 
-        /* Падающие кольца */
+        /* КОЛЬЦА ТЕПЕРЬ СРАЗУ ВИДНЫ НА ВСЁМ БЕЛОМ ФОНЕ */
         .card-rings {
             position: absolute;
             top: 0;
@@ -43,31 +43,51 @@
             border-radius: 32px;
         }
 
-        @keyframes floatRingsWhite {
-            0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.4; }
-            80% { opacity: 0.4; }
-            100% { transform: translateY(110%) rotate(360deg); opacity: 0; }
+        /* Новая анимация: кольца плавно плывут снизу вверх и всегда видны */
+        @keyframes floatRingsUp {
+            0% {
+                transform: translateY(100%) rotate(0deg);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-20%) rotate(360deg);
+                opacity: 0.4;
+            }
         }
+
+        /* Альтернативная анимация: сверху вниз (раскомментируйте, если нужна) */
+        /*
+        @keyframes floatRingsDown {
+            0% {
+                transform: translateY(-20%) rotate(0deg);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(100%) rotate(360deg);
+                opacity: 0.4;
+            }
+        }
+        */
 
         .ring-white {
             position: absolute;
             border-radius: 50%;
-            opacity: 0;
-            animation: floatRingsWhite 18s linear infinite;
+            opacity: 0.4;
+            animation: floatRingsUp 18s linear infinite;
             background: transparent;
         }
 
-        .ring-white:nth-child(1) { left: 5%; width: 80px; height: 80px; border: 4px solid #444; animation-duration: 20s; animation-delay: 0s; }
-        .ring-white:nth-child(2) { left: 18%; width: 45px; height: 45px; border: 3px solid #999; animation-duration: 14s; animation-delay: 2s; }
-        .ring-white:nth-child(3) { left: 35%; width: 110px; height: 110px; border: 4px solid #222; animation-duration: 25s; animation-delay: 5s; }
-        .ring-white:nth-child(4) { left: 55%; width: 60px; height: 60px; border: 3px solid #777; animation-duration: 16s; animation-delay: 1s; }
-        .ring-white:nth-child(5) { left: 70%; width: 95px; height: 95px; border: 4px solid #555; animation-duration: 22s; animation-delay: 7s; }
-        .ring-white:nth-child(6) { left: 85%; width: 40px; height: 40px; border: 3px solid #aaa; animation-duration: 12s; animation-delay: 3s; }
-        .ring-white:nth-child(7) { left: 45%; width: 35px; height: 35px; border: 3px solid #888; animation-duration: 11s; animation-delay: 4s; }
-        .ring-white:nth-child(8) { left: 78%; width: 70px; height: 70px; border: 4px solid #333; animation-duration: 18s; animation-delay: 6s; }
-        .ring-white:nth-child(9) { left: 12%; width: 55px; height: 55px; border: 3px solid #bbb; animation-duration: 15s; animation-delay: 8s; }
-        .ring-white:nth-child(10) { left: 62%; width: 85px; height: 85px; border: 4px solid #666; animation-duration: 21s; animation-delay: 10s; }
+        /* Разные стартовые позиции — чтобы кольца не двигались толпой */
+        .ring-white:nth-child(1) { left: 5%; width: 80px; height: 80px; border: 4px solid #444; animation-duration: 20s; animation-delay: 0s; top: 10%; }
+        .ring-white:nth-child(2) { left: 18%; width: 45px; height: 45px; border: 3px solid #999; animation-duration: 14s; animation-delay: 2s; top: 40%; }
+        .ring-white:nth-child(3) { left: 35%; width: 110px; height: 110px; border: 4px solid #222; animation-duration: 25s; animation-delay: 5s; top: 70%; }
+        .ring-white:nth-child(4) { left: 55%; width: 60px; height: 60px; border: 3px solid #777; animation-duration: 16s; animation-delay: 1s; top: 20%; }
+        .ring-white:nth-child(5) { left: 70%; width: 95px; height: 95px; border: 4px solid #555; animation-duration: 22s; animation-delay: 7s; top: 85%; }
+        .ring-white:nth-child(6) { left: 85%; width: 40px; height: 40px; border: 3px solid #aaa; animation-duration: 12s; animation-delay: 3s; top: 15%; }
+        .ring-white:nth-child(7) { left: 45%; width: 35px; height: 35px; border: 3px solid #888; animation-duration: 11s; animation-delay: 4s; top: 60%; }
+        .ring-white:nth-child(8) { left: 78%; width: 70px; height: 70px; border: 4px solid #333; animation-duration: 18s; animation-delay: 6s; top: 30%; }
+        .ring-white:nth-child(9) { left: 12%; width: 55px; height: 55px; border: 3px solid #bbb; animation-duration: 15s; animation-delay: 8s; top: 90%; }
+        .ring-white:nth-child(10) { left: 62%; width: 85px; height: 85px; border: 4px solid #666; animation-duration: 21s; animation-delay: 10s; top: 50%; }
 
         @keyframes softGlowWhite {
             0% { text-shadow: 0 0 0px rgba(0,0,0,0); }
@@ -413,18 +433,14 @@
     let attendanceValue = null;
     let selectedDrinks = [];
 
-    // Функция проверки имени: только буквы (русские/английские), пробелы, дефисы и апострофы
     function isValidName(name) {
-        // Разрешены: буквы (A-Z a-z А-Я а-я), пробелы, дефисы, апострофы
         const nameRegex = /^[A-Za-zА-Яа-я\s\-']+$/;
         return nameRegex.test(name);
     }
 
-    // Очистка поля ввода от недопустимых символов (по желанию)
     const nameInput = document.getElementById('guestName');
     nameInput.addEventListener('input', function(e) {
         let rawValue = e.target.value;
-        // Заменяем всё, что не буква, пробел, дефис или апостроф, на пустую строку
         let cleanedValue = rawValue.replace(/[^A-Za-zА-Яа-я\s\-']/g, '');
         if (rawValue !== cleanedValue) {
             e.target.value = cleanedValue;
@@ -475,7 +491,6 @@
             return;
         }
 
-        // Проверка на допустимые символы
         if (!isValidName(guestName)) {
             alert('Имя может содержать только буквы (русские или английские), пробелы и дефисы. Пожалуйста, уберите цифры и спецсимволы.');
             return;
