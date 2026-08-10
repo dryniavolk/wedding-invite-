@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', system-ui, 'Georgia', serif;
+            font-family: 'Georgia', 'Segoe UI', serif;
             background: #1a1a1a;
             min-height: 100vh;
             padding: 2rem 1rem;
@@ -28,97 +28,8 @@
             position: relative;
             z-index: 2;
             animation: cardAppear 0.8s ease-out;
-        }
-
-        .card-rings {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-            border-radius: 32px;
-        }
-
-        .card > *:not(.card-rings) {
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes floatRingsUp {
-            0% {
-                transform: translateY(100%) rotate(0deg);
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(-20%) rotate(360deg);
-                opacity: 0.5;
-            }
-        }
-
-        .ring-white {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: floatRingsUp 18s linear infinite;
-            background: transparent;
-        }
-
-        /* Мужские кольца (без камней) */
-        .ring-white:nth-child(1) { left: 5%; width: 80px; height: 80px; border: 4px solid #444; animation-duration: 20s; animation-delay: 0s; top: 10%; }
-        .ring-white:nth-child(3) { left: 35%; width: 110px; height: 110px; border: 4px solid #222; animation-duration: 25s; animation-delay: 5s; top: 70%; }
-        .ring-white:nth-child(5) { left: 70%; width: 95px; height: 95px; border: 4px solid #555; animation-duration: 22s; animation-delay: 7s; top: 85%; }
-        .ring-white:nth-child(8) { left: 78%; width: 70px; height: 70px; border: 4px solid #333; animation-duration: 18s; animation-delay: 6s; top: 30%; }
-        .ring-white:nth-child(9) { left: 12%; width: 55px; height: 55px; border: 3px solid #bbb; animation-duration: 15s; animation-delay: 8s; top: 90%; }
-
-        /* ЖЕНСКИЕ КОЛЬЦА — КАМЕНЬ ТОЛЬКО КАСАЕТСЯ КОЛЬЦА */
-        .ring-white.small-ring {
-            position: relative;
-        }
-        
-        .ring-white.small-ring::before {
-            content: "💎";
-            position: absolute;
-            font-size: 1.2em;
-            top: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-shadow: 0 0 3px rgba(0,0,0,0.3);
-            pointer-events: none;
-            z-index: 3;
-        }
-        
-        .ring-white.small-ring::after {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 14px;
-            height: 6px;
-            background: radial-gradient(ellipse at center, #ffd700 0%, #b8860b 100%);
-            border-radius: 40% 40% 30% 30%;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .ring-white.small-ring:nth-child(2) { left: 18%; width: 45px; height: 45px; border: 3px solid #ffd966; animation-duration: 14s; animation-delay: 2s; top: 40%; box-shadow: 0 0 6px rgba(255,215,0,0.4); }
-        .ring-white.small-ring:nth-child(4) { left: 55%; width: 60px; height: 60px; border: 3px solid #c0c0c0; animation-duration: 16s; animation-delay: 1s; top: 20%; box-shadow: 0 0 8px rgba(192,192,192,0.5); }
-        .ring-white.small-ring:nth-child(6) { left: 85%; width: 40px; height: 40px; border: 3px solid #e6c27a; animation-duration: 12s; animation-delay: 3s; top: 15%; box-shadow: 0 0 5px rgba(230,194,122,0.4); }
-        .ring-white.small-ring:nth-child(7) { left: 45%; width: 35px; height: 35px; border: 3px solid #d4af37; animation-duration: 11s; animation-delay: 4s; top: 60%; box-shadow: 0 0 6px rgba(212,175,55,0.4); }
-        .ring-white.small-ring:nth-child(10) { left: 62%; width: 85px; height: 85px; border: 4px solid #e8c785; animation-duration: 21s; animation-delay: 10s; top: 50%; box-shadow: 0 0 9px rgba(232,199,133,0.4); }
-
-        @keyframes softGlowWhite {
-            0% { text-shadow: 0 0 0px rgba(0,0,0,0); }
-            50% { text-shadow: 0 0 8px rgba(0,0,0,0.25); }
-            100% { text-shadow: 0 0 0px rgba(0,0,0,0); }
-        }
-
-        .black-header h1 {
-            animation: softGlowWhite 3s ease-in-out infinite;
+            text-align: center;
+            padding: 3rem 2rem;
         }
 
         @keyframes cardAppear {
@@ -126,234 +37,111 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .couple-photo-img, .dresscode-img {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .couple-photo-img:hover, .dresscode-img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        @keyframes gentlePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); background: #222; }
-            100% { transform: scale(1); }
-        }
-        .submit-btn:hover {
-            animation: gentlePulse 0.5s ease;
-        }
-
-        .black-header {
-            background: #000;
-            color: white;
-            text-align: center;
-            padding: 2rem 1.5rem 1.5rem;
-            border-bottom: 3px solid #fff;
-        }
-        .black-header h1 {
-            font-size: 1.8rem;
-            letter-spacing: 3px;
-            font-weight: 300;
-            text-transform: uppercase;
-        }
-        .names {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: white;
-            color: black;
-            display: inline-block;
-            padding: 0.4rem 1.8rem;
-            border-radius: 60px;
-            margin: 1rem 0 0.5rem;
-        }
-        .photo-row {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 1rem 0.5rem;
-        }
-        .photo {
-            text-align: center;
-            width: 110px;
-        }
-        .photo-circle {
-            width: 100px;
-            height: 100px;
-            background: #ddd;
-            border-radius: 50%;
-            margin: 0 auto 0.5rem;
-            border: 3px solid black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            filter: grayscale(100%);
-            overflow: hidden;
-        }
-        .photo-circle img {
+        /* Падающие кольца на фоне */
+        .card-rings {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-        .photo-name {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .couple-photo {
-            text-align: center;
-            margin: 1rem 1.5rem;
-        }
-        .couple-photo-img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            border-radius: 32px;
         }
 
-        .dresscode-photo {
-            text-align: center;
-            margin: 1rem 1.5rem;
+        @keyframes floatRingsUp {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0.3; }
+            100% { transform: translateY(-20%) rotate(360deg); opacity: 0.3; }
         }
-        .dresscode-img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+        .ring-white {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatRingsUp 18s linear infinite;
+            background: transparent;
         }
-        .dresscode-text {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            margin: 0.5rem 1.5rem 1rem;
+
+        .ring-white:nth-child(1) { left: 5%; width: 80px; height: 80px; border: 3px solid #444; animation-duration: 20s; animation-delay: 0s; top: 10%; }
+        .ring-white:nth-child(2) { left: 20%; width: 45px; height: 45px; border: 3px solid #999; animation-duration: 14s; animation-delay: 2s; top: 40%; }
+        .ring-white:nth-child(3) { left: 38%; width: 110px; height: 110px; border: 3px solid #222; animation-duration: 25s; animation-delay: 5s; top: 70%; }
+        .ring-white:nth-child(4) { left: 55%; width: 60px; height: 60px; border: 3px solid #777; animation-duration: 16s; animation-delay: 1s; top: 20%; }
+        .ring-white:nth-child(5) { left: 72%; width: 95px; height: 95px; border: 3px solid #555; animation-duration: 22s; animation-delay: 7s; top: 85%; }
+        .ring-white:nth-child(6) { left: 85%; width: 40px; height: 40px; border: 3px solid #aaa; animation-duration: 12s; animation-delay: 3s; top: 15%; }
+        .ring-white:nth-child(7) { left: 45%; width: 35px; height: 35px; border: 3px solid #888; animation-duration: 11s; animation-delay: 4s; top: 60%; }
+        .ring-white:nth-child(8) { left: 78%; width: 70px; height: 70px; border: 3px solid #333; animation-duration: 18s; animation-delay: 6s; top: 30%; }
+        .ring-white:nth-child(9) { left: 12%; width: 55px; height: 55px; border: 3px solid #bbb; animation-duration: 15s; animation-delay: 8s; top: 90%; }
+        .ring-white:nth-child(10) { left: 62%; width: 85px; height: 85px; border: 3px solid #666; animation-duration: 21s; animation-delay: 10s; top: 50%; }
+
+        .card > *:not(.card-rings) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon-big {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #555;
+            margin-bottom: 0.5rem;
             font-style: italic;
         }
 
-        .info-box {
-            background: #f5f5f5;
-            margin: 1rem 1.5rem;
-            padding: 1.2rem;
-            border-radius: 28px;
-            text-align: center;
-        }
-        .date {
-            font-size: 2rem;
-            font-weight: 800;
-        }
-        .time, .place {
-            font-size: 1.2rem;
-            margin-top: 6px;
-        }
-        .form-block {
-            padding: 1rem 1.8rem 2rem;
-        }
-        .question {
-            background: #f9f9f9;
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .attendance-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        .attend-btn {
-            background: white;
-            border: 2px solid #ccc;
-            padding: 0.8rem 2rem;
-            border-radius: 60px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-            min-width: 130px;
-        }
-        .attend-btn.selected {
-            background: black;
-            color: white;
-            border-color: black;
-        }
-        .attend-btn.yes.selected {
-            background: #000;
-            color: white;
-        }
-        .attend-btn.no.selected {
-            background: #333;
-            color: white;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 60px;
-            border: 1px solid #aaa;
-            font-size: 1rem;
-            margin-top: 0.5rem;
-            text-align: center;
-        }
-        .alcohol-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            justify-content: center;
+        .names-final {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #000;
             margin: 1rem 0;
         }
-        .alcohol-btn {
-            background: white;
-            border: 2px solid #ccc;
-            padding: 0.5rem 1rem;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-        .alcohol-btn.selected {
-            background: black;
-            color: white;
-            border-color: black;
-        }
-        .submit-btn {
-            width: 100%;
-            background: black;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 60px;
+
+        .message-text {
             font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 0.5rem;
-            transition: all 0.2s;
+            color: #333;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+            padding: 0 1rem;
         }
-        .message {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #e6e6e6;
-            border-radius: 28px;
-            text-align: center;
-            display: none;
+
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: #000;
+            margin: 1.5rem auto;
         }
-        footer {
-            text-align: center;
-            font-size: 0.7rem;
+
+        .footer-note {
+            font-size: 0.9rem;
             color: #666;
-            padding: 1rem;
+            margin-top: 1.5rem;
+            font-style: italic;
         }
+
+        .signature {
+            font-size: 1rem;
+            color: #888;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+
         @media (max-width: 550px) {
-            .names { font-size: 1.8rem; }
-            .date { font-size: 1.6rem; }
-            .photo-circle { width: 75px; height: 75px; font-size: 2.2rem; }
-            .alcohol-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
-            .attend-btn { padding: 0.6rem 1rem; font-size: 1rem; min-width: 100px; }
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 1.3rem; }
+            .names-final { font-size: 1.6rem; }
+            .message-text { font-size: 1rem; padding: 0; }
+            .card { padding: 2rem 1.2rem; }
         }
     </style>
 </head>
@@ -365,216 +153,39 @@
         <div class="ring-white"></div>
         <div class="ring-white"></div>
         <div class="ring-white"></div>
-        <div class="ring-white small-ring"></div>
-        <div class="ring-white small-ring"></div>
-        <div class="ring-white small-ring"></div>
-        <div class="ring-white small-ring"></div>
-        <div class="ring-white small-ring"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
+        <div class="ring-white"></div>
     </div>
 
-    <div class="black-header">
-        <h1>💍 Свадебное приглашение 💍</h1>
-        <div class="names">ЕГОР & ЛИЯ</div>
+    <div class="icon-big">💍</div>
+    <h1>СВАДЬБА СОСТОЯЛАСЬ!</h1>
+    <div class="names-final">ЕГОР & ЛИЯ</div>
+    <div class="divider"></div>
+
+    <div class="message-text">
+        Наша свадьба прошла просто замечательно! ✨<br>
+        Спасибо, что были с нами в этот важный день.<br>
+        Мы очень ценим каждого из вас! 🖤🤍
     </div>
 
-    <div class="photo-row">
-        <div class="photo">
-            <div class="photo-circle">
-                <span>🖤</span>
-            </div>
-            <div class="photo-name">Егор</div>
-        </div>
-        <div class="photo">
-            <div class="photo-circle">
-                <span>🤍</span>
-            </div>
-            <div class="photo-name">Лия</div>
-        </div>
+    <div class="message-text" style="font-size: 1.1rem; color: #555; margin-top: 0.5rem;">
+        Спасибо за ваши ответы на приглашение —<br>
+        они помогли нам сделать этот день идеальным!
     </div>
 
-    <div class="couple-photo">
-        <img class="couple-photo-img" src="https://raw.githubusercontent.com/dryniavolk/wedding-invite-/main/mer.jpg" alt="Егор и Лия">
+    <div class="divider"></div>
+
+    <div class="footer-note">
+        💕 Мы будем помнить этот день всегда. Спасибо, что были с нами!
     </div>
 
-    <div class="info-box">
-        <div class="date">31 ИЮЛЯ 2026</div>
-        <div class="time">⏰ НАЧАЛО В 16:00</div>
-        <div class="place">📍 «Дача на Лесной»</div>
-    </div>
-
-    <div class="dresscode-photo">
-        <img class="dresscode-img" src="https://raw.githubusercontent.com/dryniavolk/wedding-invite-/main/dress%20code.jpg" alt="Дресс-код">
-    </div>
-    <div class="dresscode-text">
-        ✨ Будем очень благодарны, если Вы поддержите стиль нашей свадьбы в своих нарядах ✨
-    </div>
-
-    <div class="form-block">
-        <form id="rsvpForm">
-            <div class="question">
-                <div style="font-weight: bold; font-size: 1.3rem;">😎 Пишите как хотите, главное — чтобы мы поняли, кого спасать от голода и скуки. Но лучше имя и фамилия</div>
-                <input type="text" id="guestName" placeholder="Например: Илон Маск" required>
-            </div>
-
-            <div class="question">
-                <div style="font-weight: bold; font-size: 1.3rem;">Сможете ли вы присутствовать?</div>
-                <div class="attendance-buttons">
-                    <button type="button" id="attendYes" class="attend-btn yes">✅ «Могу», если готовы есть и веселиться до утра</button>
-                    <button type="button" id="attendNo" class="attend-btn no">❌ «Не могу» — если боитесь не вписаться в лифт</button>
-                </div>
-            </div>
-
-            <div class="question" id="alcoholBlock">
-                <div style="font-weight: bold; font-size: 1.2rem;">🍷 Ваш выбор алкоголя</div>
-                <div class="alcohol-grid">
-                    <button type="button" data-drink="Вино красное" class="alcohol-btn">🍷 Вино красное</button>
-                    <button type="button" data-drink="Вино белое" class="alcohol-btn">🥂 Вино белое</button>
-                    <button type="button" data-drink="Шампанское" class="alcohol-btn">🥂 Шампанское</button>
-                    <button type="button" data-drink="Водка" class="alcohol-btn">🥃 Водка</button>
-                    <button type="button" data-drink="Коньяк" class="alcohol-btn">🥃 Коньяк</button>
-                    <button type="button" data-drink="Виски/Кола" class="alcohol-btn">🥃 Виски/Кола</button>
-                    <button type="button" data-drink="Безалкогольное" class="alcohol-btn">🧃 Безалкогольное</button>
-                </div>
-                <div style="font-size: 1rem; margin-top: 8px;">✨ Можно выбрать хоть весь список, но не советуем 😜 ✨</div>
-            </div>
-
-            <button type="submit" class="submit-btn">📨 Отправить ответ</button>
-            <div id="responseMsg" class="message"></div>
-        </form>
-        <footer>
-            Пожалуйста, подтвердите до 15 июля ✨<br>
-            <span style="font-size: 0.65rem;">🤵‍♂️ Сайт сверстал Андрей (он же гость, он же тестировщик — так что если что, я в зале 😄)</span>
-        </footer>
+    <div class="signature">
+        📸 Фотографии скоро появятся<br>
+        ❤️ С любовью, Егор и Лия
     </div>
 </div>
-
-<script>
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRXnRlQaY8bb-xNzu-BkjyPHR9H6SAKJItgpVJ4PJ_j6rP4dSy7BwgQjy93-P5FlVQ-g/exec';
-
-    let attendanceValue = null;
-    let selectedDrinks = [];
-
-    function isValidName(name) {
-        const nameRegex = /^[A-Za-zА-Яа-я\s\-']+$/;
-        return nameRegex.test(name);
-    }
-
-    const nameInput = document.getElementById('guestName');
-    nameInput.addEventListener('input', function(e) {
-        let rawValue = e.target.value;
-        let cleanedValue = rawValue.replace(/[^A-Za-zА-Яа-я\s\-']/g, '');
-        if (rawValue !== cleanedValue) {
-            e.target.value = cleanedValue;
-        }
-    });
-
-    const attendYesBtn = document.getElementById('attendYes');
-    const attendNoBtn = document.getElementById('attendNo');
-
-    attendYesBtn.addEventListener('click', function() {
-        attendYesBtn.classList.add('selected');
-        attendNoBtn.classList.remove('selected');
-        attendanceValue = 'Могу';
-    });
-
-    attendNoBtn.addEventListener('click', function() {
-        attendNoBtn.classList.add('selected');
-        attendYesBtn.classList.remove('selected');
-        attendanceValue = 'Не могу';
-    });
-
-    const alcoholBtns = document.querySelectorAll('.alcohol-btn');
-    alcoholBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const drinkValue = this.getAttribute('data-drink');
-            const index = selectedDrinks.indexOf(drinkValue);
-            
-            if (index === -1) {
-                selectedDrinks.push(drinkValue);
-                this.classList.add('selected');
-            } else {
-                selectedDrinks.splice(index, 1);
-                this.classList.remove('selected');
-            }
-        });
-    });
-
-    const form = document.getElementById('rsvpForm');
-    const msgDiv = document.getElementById('responseMsg');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        let guestName = nameInput.value.trim();
-        
-        if (!guestName) {
-            alert('Пожалуйста, напишите ваше имя');
-            return;
-        }
-
-        if (!isValidName(guestName)) {
-            alert('Имя может содержать только буквы (русские или английские), пробелы и дефисы. Пожалуйста, уберите цифры и спецсимволы.');
-            return;
-        }
-
-        if (!attendanceValue) {
-            alert('Выберите: сможете прийти или нет (кнопки "Могу" или "Не могу")');
-            return;
-        }
-
-        let drinkText = '';
-        if (attendanceValue === 'Могу') {
-            if (selectedDrinks.length === 0) {
-                alert('Выберите хотя бы один вариант алкоголя (или безалкогольный)');
-                return;
-            }
-            drinkText = selectedDrinks.join(', ');
-        } else {
-            drinkText = '—';
-        }
-
-        const submitBtn = document.querySelector('.submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Отправка...';
-
-        try {
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    timestamp: new Date().toLocaleString('ru-RU'),
-                    guestName: guestName,
-                    attendance: attendanceValue,
-                    drink: drinkText
-                })
-            });
-
-            msgDiv.style.display = 'block';
-            if (attendanceValue === 'Могу') {
-                let drinkMessage = selectedDrinks.length === 1 
-                    ? `Вы выбрали: ${drinkText}` 
-                    : `Вы выбрали аж ${selectedDrinks.length} напитка(ов): ${drinkText}. Надеемся, вы доберётесь до дачи 😄`;
-                msgDiv.innerHTML = `✅ ${guestName}, спасибо! Вы ответили, что придёте. ${drinkMessage} Ждём 31 июля! 🖤🤍`;
-            } else {
-                msgDiv.innerHTML = `😔 ${guestName}, нам жаль, что вы не сможете прийти. Обязательно передадим привет!`;
-            }
-
-            attendYesBtn.classList.remove('selected');
-            attendNoBtn.classList.remove('selected');
-            attendanceValue = null;
-            alcoholBtns.forEach(b => b.classList.remove('selected'));
-            selectedDrinks = [];
-            nameInput.value = '';
-
-        } catch (err) {
-            msgDiv.style.display = 'block';
-            msgDiv.innerHTML = '❌ Ошибка отправки. Попробуйте позже или напишите нам лично.';
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = '📨 Отправить ответ';
-        }
-    });
-</script>
 </body>
 </html>
